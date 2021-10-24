@@ -70,6 +70,7 @@ public class SelectToFilter extends ClientWs{
                       filtrosGenerales.put(filtro[0], filtro[1]);
                   }
                   filtroMesas.putAll(filtrosGenerales);
+                  convertData(filtrosGenerales, "<General>");
               }
                 if (line.charAt(0) == '<' && line.charAt(1) == 'M') {
                     String mesa = line;
@@ -117,7 +118,7 @@ public class SelectToFilter extends ClientWs{
         List<Client> clients = clientService.findAllByQuery(query);
 
         if (clients.isEmpty() || clients.size() < 4) {
-            selecionados.append(mesa).append("\n").append(CANCELADA).append("\n");
+            selecionados.append(mesa).append("\n").append(CANCELADA).append("\n \n");
         }else {
             clients.forEach(client -> {
                 if (client.getEncrypt() == 1) {
@@ -127,12 +128,12 @@ public class SelectToFilter extends ClientWs{
 
             clients = filterForCompany(clients);
             if (clients.isEmpty() || clients.size() < 4) {
-                selecionados.append(mesa).append("\n").append(CANCELADA).append("\n");
+                selecionados.append(mesa).append("\n").append(CANCELADA).append("\n \n");
             }else{
 
                 clients = filterForMale(clients);
                 if (clients.isEmpty() || clients.size() < 4) {
-                    selecionados.append(mesa).append("\n").append(CANCELADA).append("\n");
+                    selecionados.append(mesa).append("\n").append(CANCELADA).append("\n \n");
                 }else{
                     selecionados.append(mesa).append("\n");
                     for (Client client: clients) {
@@ -143,8 +144,12 @@ public class SelectToFilter extends ClientWs{
                         count++;
                     }
                     result.deleteCharAt(result.length()-1);
+                    result.append("\n \n");
                     selecionados.append(result);
-                    System.out.println(selecionados);
+                    result.delete(0, result.length());
+                    if (!mesa.equals("<General>")){
+                        System.out.println(selecionados);
+                    }
                 }
             }
         }
