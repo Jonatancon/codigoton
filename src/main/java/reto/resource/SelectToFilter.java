@@ -22,17 +22,13 @@ public class SelectToFilter extends ClientWs{
     StringBuilder selecionados = new StringBuilder();
     StringBuilder result = new StringBuilder();
 
-    private String query = "WITH orden AS(\n" +
-            "\t SELECT *,\n" +
-            "        ROW_NUMBER() OVER( PARTITION BY male ORDER BY male) rn\n" +
-            "    FROM client\n" +
-            ")\n" +
+    private String query =
             "SELECT c.id, c.code , c.male, c.type, c.location, c.company, c.encrypt, SUM(a.balance) as total\n" +
-            "FROM orden c JOIN account a ON c.id = a.client_id\n" +
-            "GROUP BY a.client_id\n" +
-            "HAVING (COUNT(*) > 1 OR COUNT(*) = 1)\n";
+                    "FROM client c JOIN account a ON c.id = a.client_id\n" +
+                    "GROUP BY a.client_id\n" +
+                    "HAVING (COUNT(*) > 1 OR COUNT(*) = 1) \n";
 
-    private String finalQuery = "ORDER BY rn, total DESC;";
+    private String finalQuery = "ORDER BY total DESC;";
 
     public String consulta(Map<String, String> filters) {
         String perosnal = query;
