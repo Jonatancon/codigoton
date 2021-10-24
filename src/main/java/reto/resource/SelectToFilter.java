@@ -60,7 +60,7 @@ public class SelectToFilter extends ClientWs{
             while(line != null) {
                 String[] filtro;
 
-              if (line.equals("<General>")) {
+              if (line.equals("<General>")) { // Seleciona los filtros generales
                   while ((line = br.readLine()).charAt(1) != 'M') {
                       filtro = line.split(":");
                       filtrosGenerales.put(filtro[0], filtro[1]);
@@ -68,7 +68,7 @@ public class SelectToFilter extends ClientWs{
                   filtroMesas.putAll(filtrosGenerales);
                   convertData(filtrosGenerales, "<General>");
               }
-                if (line.charAt(0) == '<' && line.charAt(1) == 'M') {
+                if (line.charAt(0) == '<' && line.charAt(1) == 'M') {// Selecciona los filtros para cada mesa
                     String mesa = line;
                     while ((line = br.readLine()) != null) {
 

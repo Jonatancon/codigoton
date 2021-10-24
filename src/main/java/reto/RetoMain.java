@@ -1,7 +1,10 @@
+/*
+* @CopyRight: Jonatan Stiven Restrepo Lora
+* */
+
 package reto;
 
 import reto.resource.SelectToFilter;
-import reto.utils.ClientWs;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
